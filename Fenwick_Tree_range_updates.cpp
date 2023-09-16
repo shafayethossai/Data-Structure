@@ -1,4 +1,4 @@
-// range updates
+// range updates O(logn)
 
 #include <bits/stdc++.h>
 using namespace std;
