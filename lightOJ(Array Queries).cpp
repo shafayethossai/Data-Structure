@@ -1,3 +1,4 @@
+// segment tree
 #include <bits/stdc++.h>
 using namespace std;
 int arr[500001];
