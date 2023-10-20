@@ -62,6 +62,70 @@ void deleteNode(int value) {
     prevNode->next = nextNode;
 }
 
+void search(int s) {
+    bool flag = false;
+
+    if (root == NULL) {
+        cout << "list not found" << endl;
+    }
+    else {
+        Node *current = root;
+
+        while (current != NULL) {
+            if (s == current->data) {
+                flag = true;
+                break;
+            }
+            current = current->next;
+        }
+        if (flag) {
+            cout << "Found" << endl;
+        }
+        else {
+            cout << "Not found" << endl;
+        }
+    }
+}
+
+void count () {
+    int cnt = 0;
+
+    if (root == NULL) {
+        cout << "list not found" << endl;
+    }
+    else {
+        Node *current = root;
+
+        while (current != NULL) {
+            cnt++;
+            current = current->next;
+        }
+        cout << "Total node is : " << cnt << endl;
+    }
+}
+
+void sort () {
+    if (root == NULL) {
+        cout << "list not found" << endl;
+    }
+    else {
+        Node *prevNode = root;
+        Node *current;
+
+        while (prevNode != NULL) {
+            current = prevNode->next;
+
+            while (current != NULL) {
+                if (current->data < prevNode->data) {
+                    swap (prevNode->data, current->data);
+                }
+                current = current->next;
+            }
+            prevNode = prevNode->next;
+        }
+    }
+}
+
 void print() {
     Node *current = root;
 
@@ -79,11 +143,19 @@ int main() {
     push(2);
     push(7);
     push(9);
-
     insert(11, 12);
+    print();
+    cout << endl;
 
     deleteNode(7);
-
     print();
+    cout << endl;
+
+    search(11);
+    count();
+
+    sort();
+    print();
+
     return 0;
 }
