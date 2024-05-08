@@ -1,77 +1,68 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-#define n 20
+#define MAX_SIZE 20
 
-class Queue {
-    int *arr;
-    int front;
-    int back;
+int arr[MAX_SIZE];
+int front = -1;
+int back = -1;
 
-    public :
-    Queue () {
-        arr = new int [n];
-        front = -1;
-        back = -1;
+void push(int x) {
+    if (back == MAX_SIZE - 1) {
+        cout << "Queue overflow" << endl;
+        return;
     }
+    back++;
+    arr[back] = x;
 
-    void push (int x) {
-        if (back == n-1) {
-            cout << "Queue overflow" << endl;
-            return;
-        }
-        back++;
-        arr[back] = x;
-
-        if (front == -1) {
-            front++;
-        }
-    }
-
-    void pop () {
-        if (front == -1 || front > back) {
-            cout << "No elements in queue" << endl;
-            return;
-        }
+    if (front == -1) {
         front++;
     }
+}
 
-    int peek () {
-        if (front == -1 || front > back) {
-            cout << "No elements in queue" << endl;
-            return -1;
-        }
-        return arr[front];
+void pop() {
+    if (front == -1 || front > back) {
+        cout << "No elements in queue" << endl;
+        return;
     }
+    front++;
+}
 
-    bool empty () {
-        if (front == -1 || front > back) {
-            return true;
-        }
-        return false;
+int peek() {
+    if (front == -1 || front > back) {
+        cout << "No elements in queue" << endl;
+        return -1;
     }
-};
+    return arr[front];
+}
 
-int main () {
-    Queue q;
-    q.push(1);
-    q.push(2);
-    q.push(3);
-    q.push(4);
+bool empty() {
+    if (front == -1 || front > back) {
+        return true;
+    }
+    return false;
+}
 
-    cout << q.peek() << endl;
-    q.pop();
+int main() {
+    push(1);
+    push(2);
+    push(3);
+    push(4);
 
-    cout << q.peek() << endl;
-    q.pop();
+    cout << peek() << endl;
+    pop();
 
-    cout << q.peek() << endl;
-    q.pop();
+    cout << peek() << endl;
+    pop();
 
-    cout << q.peek() << endl;
-    q.pop();
+    cout << peek() << endl;
+    pop();
 
-    cout << q.empty() << endl;
+    cout << peek() << endl;
+    pop();
+
+    cout << empty() << endl;
 
     return 0;
 }
+
