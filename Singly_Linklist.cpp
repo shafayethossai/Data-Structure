@@ -9,8 +9,8 @@ struct Node {
 Node *root = NULL;
 
 void push(int value) {
-    if(root == NULL) { //If the list is empty
-        Node *newNode = new Node(); //create new node in root
+    if(root == NULL) { // If the list is empty
+        Node *newNode = new Node(); // create new node in root
         newNode->data = value;
         newNode->next = NULL;
 
@@ -18,123 +18,70 @@ void push(int value) {
         return;
     }
 
-    Node *current = root; //make a copy of root node
-
-    while(current->next != NULL) { //Find the last node
-        current = current->next; //go to next address
-    }
-
-    // here the last node is current
-    Node *newNode = new Node(); //create a new node
+    Node *newNode = new Node(); // create a new node
     newNode->data = value;
-    newNode->next = NULL;
+    newNode->next = root;
 
-    current->next = newNode;  //link the last node with new node
+    root = newNode; // set the new node as root
 }
 
-void insert(int value, int newValue) { // 11, 12
+void insert(int value, int newValue) {
     Node *current = root;
+    Node *prevNode = NULL;
 
-    while(current->data != value) {
+    while(current != NULL && current->data != value) {
+        prevNode = current;
         current = current->next;
     }
 
-    // current node's value is 11
-    Node *nextNode = current->next;
+    if(current == NULL) { // value not found
+        cout << "Value not found in the list." << endl;
+        return;
+    }
 
     Node *newNode = new Node();
     newNode->data = newValue;
-    newNode->next = nextNode;
+    newNode->next = current;
 
-    current->next = newNode;
+    if(prevNode == NULL) { // inserting at the beginning
+        root = newNode;
+    }
+    else {
+        prevNode->next = newNode;
+    }
 }
 
 void deleteNode(int value) {
     Node *current = root;
     Node *prevNode = NULL;
 
-    while(current->data != value) {
+    while(current != NULL && current->data != value) {
         prevNode = current;
         current = current->next;
     }
 
-    Node *nextNode = current->next;
-    prevNode->next = nextNode;
-}
+    if(current == NULL) { // value not found
+        cout << "Value not found in the list." << endl;
+        return;
+    }
 
-void search(int s) {
-    bool flag = false;
-
-    if (root == NULL) {
-        cout << "list not found" << endl;
+    if(prevNode == NULL) { // deleting the root node
+        root = current->next;
     }
     else {
-        Node *current = root;
-
-        while (current != NULL) {
-            if (s == current->data) {
-                flag = true;
-                break;
-            }
-            current = current->next;
-        }
-        if (flag) {
-            cout << "Found" << endl;
-        }
-        else {
-            cout << "Not found" << endl;
-        }
+        prevNode->next = current->next;
     }
-}
 
-void count () {
-    int cnt = 0;
-
-    if (root == NULL) {
-        cout << "list not found" << endl;
-    }
-    else {
-        Node *current = root;
-
-        while (current != NULL) {
-            cnt++;
-            current = current->next;
-        }
-        cout << "Total node is : " << cnt << endl;
-    }
-}
-
-void sort () {
-    if (root == NULL) {
-        cout << "list not found" << endl;
-    }
-    else {
-        Node *prevNode = root;
-        Node *current;
-
-        while (prevNode != NULL) {
-            current = prevNode->next;
-
-            while (current != NULL) {
-                if (current->data < prevNode->data) {
-                    swap (prevNode->data, current->data);
-                }
-                current = current->next;
-            }
-            prevNode = prevNode->next;
-        }
-    }
+    delete current;
 }
 
 void print() {
     Node *current = root;
 
-    while(current->next != NULL) {
-        cout<<current->data<<endl;
+    while(current != NULL) {
+        cout << current->data << endl;
         current = current->next;
     }
-
-    cout<<current->data<<endl;
 }
 
 int main() {
@@ -143,19 +90,26 @@ int main() {
     push(2);
     push(7);
     push(9);
-    insert(11, 12);
+
+    cout << "Original list:" << endl;
     print();
     cout << endl;
 
-    deleteNode(7);
+    insert(5, 1); // insert at first
+    insert(7, 8); // insert at middle
+    insert(9, 10); // insert at last
+
+    cout << "List after insertions:" << endl;
     print();
     cout << endl;
 
-    search(11);
-    count();
+    deleteNode(1); // delete first element
+    deleteNode(7); // delete middle element
+    deleteNode(10); // delete last element
 
-    sort();
+    cout << "List after deletions:" << endl;
     print();
+    cout << endl;
 
     return 0;
 }
