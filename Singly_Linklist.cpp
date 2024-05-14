@@ -7,22 +7,20 @@ struct Node {
 };
 
 Node *root = NULL;
+Node *tail = NULL;
 
 void push(int value) {
-    if(root == NULL) { // If the list is empty
-        Node *newNode = new Node(); // create new node in root
-        newNode->data = value;
-        newNode->next = NULL;
-
-        root = newNode;
-        return;
-    }
-
-    Node *newNode = new Node(); // create a new node
+    Node *newNode = new Node(); // create new node in root
     newNode->data = value;
-    newNode->next = root;
+    newNode->next = NULL;
 
-    root = newNode; // set the new node as root
+    if(root == NULL) { // If the list is empty
+        root = newNode;
+    }
+    else {
+        tail->next = newNode;
+    }
+    tail = newNode;
 }
 
 void insert(int value, int newValue) {
