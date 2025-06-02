@@ -1,18 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> arr;
-vector<int> tree;
+#define ll long long
 
-void init(int node, int b, int e) {
+vector<ll> arr;
+vector<ll> tree;
+
+void init(ll node, ll b, ll e) {
     if (b == e) {
         tree[node] = arr[b];
         return;
     }
 
-    int mid = (b + e) / 2;
-    int left = node * 2;
-    int right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    ll left = node * 2;
+    ll right = node * 2 + 1;
 
     init(left, b, mid);
     init(right, mid + 1, e);
@@ -20,21 +22,21 @@ void init(int node, int b, int e) {
     tree[node] = tree[left] + tree[right];
 }
 
-int query(int node, int b, int e, int i, int j) {
+int query(ll node, ll b, ll e, ll i, ll j) {
     if (j < b || i > e) return 0;
     if (i <= b && e <= j) return tree[node];
 
-    int mid = (b + e) / 2;
-    int left = node * 2;
-    int right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    ll left = node * 2;
+    ll right = node * 2 + 1;
 
-    int l = query(left, b, mid, i, j);
-    int r = query(right, mid + 1, e, i, j);
+    ll l = query(left, b, mid, i, j);
+    ll r = query(right, mid + 1, e, i, j);
 
     return l + r;
 }
 
-void update(int node, int b, int e, int index, int value) {
+void update(ll node, ll b, ll e, ll index, ll value) {
     if (index < b || index > e) return;
 
     if (b == e) {
@@ -42,9 +44,9 @@ void update(int node, int b, int e, int index, int value) {
         return;
     }
 
-    int mid = (b + e) / 2;
-    int left = node * 2;
-    int right = node * 2 + 1;
+    ll mid = (b + e) / 2;
+    ll left = node * 2;
+    ll right = node * 2 + 1;
 
     update(left, b, mid, index, value);
     update(right, mid + 1, e, index, value);
@@ -53,7 +55,7 @@ void update(int node, int b, int e, int index, int value) {
 }
 
 int main() {
-    int n, q;
+    ll n, q;
     cin >> n >> q;
 
     arr.resize(n + 1);
@@ -69,12 +71,12 @@ int main() {
         string type;
         cin >> type;
         if (type == "sum") {
-            int l, r;
+            ll l, r;
             cin >> l >> r;
             cout << query(1, 1, n, l, r) << endl;
         } 
         else if (type == "update") {
-            int index, value;
+            ll index, value;
             cin >> index >> value;
             arr[index] = value;
             update(1, 1, n, index, value);
