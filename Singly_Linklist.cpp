@@ -67,6 +67,7 @@ void deleteNode(int value) {
         root = current->next;
     }
     else {
+        tail = prevNode;
         prevNode->next = current->next;
     }
 
@@ -86,28 +87,34 @@ int main() {
     push(5);
     push(11);
     push(2);
-    push(7);
-    push(9);
+//    push(7);
+//    push(9);
 
     cout << "Original list:" << endl;
     print();
     cout << endl;
 
     insert(5, 1); // insert at first
-    insert(7, 8); // insert at middle
-    insert(9, 10); // insert at last
+    insert(11, 8); // insert at middle
+    insert(2, 5); // insert at last
 
     cout << "List after insertions:" << endl;
     print();
     cout << endl;
 
     deleteNode(1); // delete first element
-    deleteNode(7); // delete middle element
-    deleteNode(10); // delete last element
+    deleteNode(8); // delete middle element
+    deleteNode(2); // delete last element
 
     cout << "List after deletions:" << endl;
     print();
     cout << endl;
+
+    push(10);
+    cout << "Original list:" << endl;
+    print();
+    cout << endl;
+
 
     return 0;
 }
