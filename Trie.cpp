@@ -58,32 +58,6 @@ bool startsWith(string &s) {
     return true; // if we can traverse full prefix
 }
 
-void solve() {
-    int k;
-    string str;
-    cin >> k >> str;
-
-    if (k == 1) {
-        insertWord(str);
-    } 
-    else if (k == 2) {
-        if (searchWord(str) == true) {
-            cout << "YES" << endl;
-        }
-        else {
-            cout << "NO" << endl;
-        }
-    } 
-    else if (k == 3) {
-        if (startsWith(str) == true) {
-            cout << "YES" << endl;
-        }
-        else {
-            cout << "NO" << endl;
-        }
-    }
-}
-
 int main() {
     ios::sync_with_stdio(false); cin.tie(nullptr);
 
@@ -91,7 +65,29 @@ int main() {
     cin >> tc;
     
     while (tc--) {
-        solve();
+        int k;
+        string str;
+        cin >> k >> str;
+    
+        if (k == 1) {
+            insertWord(str);
+        } 
+        else if (k == 2) {
+            if (searchWord(str) == true) {
+                cout << "YES" << endl;
+            }
+            else {
+                cout << "NO" << endl;
+            }
+        } 
+        else if (k == 3) {
+            if (startsWith(str) == true) {
+                cout << "YES" << endl;
+            }
+            else {
+                cout << "NO" << endl;
+            }
+        }
     }
 
     return 0;
